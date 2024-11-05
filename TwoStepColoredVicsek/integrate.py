@@ -1086,7 +1086,7 @@ class langevin(_integration_method):
 
 class vicsek(_integration_method):
 
-    def __init__(self, group, nlist=None, alpha=1.0, v0=1.0, delta=0.0, bias=0.0, tau=1.0, sym=2, seed=0):
+    def __init__(self, group, nlist=None, alpha=1.0, beta=1.0, v0=1.0, delta=0.0, bias=0.0, tau=1.0, sym=2, seed=0):
 
         # initialize base class
         _integration_method.__init__(self);
@@ -1106,6 +1106,7 @@ class vicsek(_integration_method):
                 group.cpp_group,
                 self.nlist.cpp_nlist,
                 alpha,
+                beta,
                 v0,
                 delta,
                 bias,
@@ -1115,6 +1116,7 @@ class vicsek(_integration_method):
         self.group = group
         self.v0 = v0
         self.alpha = alpha
+        self.beta = beta
         self.delta = delta
         self.bias = bias
         self.tau = tau
