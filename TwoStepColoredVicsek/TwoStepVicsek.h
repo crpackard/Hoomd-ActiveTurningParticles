@@ -17,6 +17,7 @@ class PYBIND11_EXPORT TwoStepVicsek : public TwoStepVicsekBase
                            std::shared_ptr<ParticleGroup> group,
                            std::shared_ptr<NeighborList> nlist,
                            Scalar alpha,
+                           Scalar beta,
                            Scalar v0,
                            Scalar delta,
                            Scalar bias,
@@ -43,6 +44,7 @@ class PYBIND11_EXPORT TwoStepVicsek : public TwoStepVicsekBase
       std::shared_ptr<ParticleGroup> m_group;
       std::shared_ptr<NeighborList> m_nlist;
       Scalar m_alpha;
+      Scalar m_beta;
       Scalar m_v0;
       Scalar m_delta;
       Scalar m_bias;
