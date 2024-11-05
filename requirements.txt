@@ -1,3 +1,4 @@
+setuptools>=64.0.0
 gsd>=2.0.0
 numpy>=1.21.0
 matplotlib>=3.4.0
