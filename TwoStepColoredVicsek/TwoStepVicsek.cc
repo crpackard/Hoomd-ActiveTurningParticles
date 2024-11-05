@@ -142,12 +142,12 @@ void TwoStepVicsek::integrateStepOne(unsigned int timestep)
         if(N==0)
             {
             updated_omegas[i] = omega_i - (dt/m_tau)*(omega_i-m_bias) + m_delta*slow::sqrt(2*(dt/m_tau))*zeta;
-            updated_orientations[i] = theta_i + updated_omega_i;
+            updated_orientations[i] = theta_i + updated_omegas[i];
             }
         else
             {
             updated_omegas[i] = omega_i + (m_beta/N)*W - (dt/m_tau)*(omega_i-m_bias) + m_delta*slow::sqrt(2*(dt/m_tau))*zeta;
-            updated_orientations[i] = theta_i + (m_alpha/N)*J + updated_omega_i;
+            updated_orientations[i] = theta_i + (m_alpha/N)*J + updated_omegas[i];
             }
         }
 
