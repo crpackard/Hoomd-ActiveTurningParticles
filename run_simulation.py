@@ -1,5 +1,4 @@
 
-
 # Import these modules for file/directory management
 import os, random, argparse
 from os import path
@@ -47,14 +46,15 @@ def main(
   simfile_name: str = f'a={α:.3f}_e={η:.3f}.gsd'
   simfile_path: str = os.path.join(subsubdir_path, simfile_name)
   if not os.path.exists(simfile_path):
-    print(f'Creating new simulation datafile: {simfile_path}')
+    print(f'\nCreating new simulation datafile: {simfile_path}')
   else:
-    print(f'Simulation datafile already exists: {simfile_path}')
+    print(f'\nSimulation datafile already exists: {simfile_path}')
     return True
 
   # Initialize HOOMD-Blue simulation.
   sim = hoomd.context.SimulationContext()
   with sim:
+    #print(L); import sys; sys.exit()
     hoomd.context.initialize()
 
     # Number of particles in simulation.
@@ -76,6 +76,7 @@ def main(
       orientation=[[θs[ii], 0, 0, 1] for ii in range(N)],
       moment_inertia=[[np.cos(ω), np.sin(ω), 0] for ω in ωs])
     hoomd.init.create_lattice(unitcell, n=1)
+    print(f'\nSimulation initialized with N={N} particles')
 
     # Setup the HOOMD-Blue integrator.
     nl_cell = nl.cell(r_buff=0)
@@ -131,15 +132,15 @@ def main(
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser(description="Specify simulation parameters.")
-  parser.add_argument("--L",     type=int,   default=None,  help="Linear system size.")
-  parser.add_argument("--rho",   type=float, default=2.00,  help="Global particle density.")
-  parser.add_argument("--v",     type=float, default=1.00,  help="Self-propulsion speed.")
-  parser.add_argument("--alpha", type=float, default=0.10,  help="Orientational coupling strength.")
-  parser.add_argument("--beta",  type=float, default=0.00,  help="Rotational coupling strength.")
-  parser.add_argument("--eta",   type=float, default=0.05,  help="Orientational noise strength.")
-  parser.add_argument("--tau",   type=float, default=1.00,  help="Persistence/memory time.")
-  parser.add_argument("--w",     type=float, default=0.00,  help="Persistent turning bias.")
-  parser.add_argument("--sym",   type=int,   default=1,     help="Orientational alignment symmetry.")
+  parser.add_argument("--L",     type=int,   default=100,  help="Linear system size.")
+  parser.add_argument("--rho",   type=float, default=2.00, help="Global particle density.")
+  parser.add_argument("--v",     type=float, default=1.00, help="Self-propulsion speed.")
+  parser.add_argument("--alpha", type=float, default=0.10, help="Orientational coupling strength.")
+  parser.add_argument("--beta",  type=float, default=0.00, help="Rotational coupling strength.")
+  parser.add_argument("--eta",   type=float, default=0.05, help="Orientational noise strength.")
+  parser.add_argument("--tau",   type=float, default=1.00, help="Persistence/memory time.")
+  parser.add_argument("--w",     type=float, default=0.00, help="Persistent turning bias.")
+  parser.add_argument("--sym",   type=int,   default=1,    help="Orientational alignment symmetry.")
 
   args = parser.parse_args()
   main(
