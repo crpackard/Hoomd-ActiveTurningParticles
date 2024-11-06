@@ -131,13 +131,13 @@ def main(
 
 if __name__ == "__main__":
   main(
-    L=sys.argv[1],   # Linear system size.
-    ρ=sys.argv[2],   # Global particle density.
-    v=sys.argv[3],   # Self-propulsion speed.
-    sym=sys.argv[9], # Orientational alignment interaction symmetry.
-    α=sys.argv[4],   # Orientational alignment coupling strength.
-    β=sys.argv[5],   # Rotational frequency coupling strength.
-    η=sys.argv[6],   # Rotational frequency noise strength.
-    ω0=sys.argv[8],  # Rotational frequency bias.
-    τ=sys.argv[7],   # Persistence/memory time.
+    L=int(sys.argv[1]),    # Linear system size.
+    ρ=float(sys.argv[2]),  # Global particle density.
+    v=float(sys.argv[3]),  # Self-propulsion speed.
+    sym=int(sys.argv[4]),  # Orientational alignment interaction symmetry.
+    α=float(sys.argv[5]),  # Orientational alignment coupling strength.
+    β=float(sys.argv[5]),  # Rotational frequency coupling strength.
+    η=float(sys.argv[6]),  # Rotational frequency noise strength.
+    ω0=float(sys.argv[8]), # Rotational frequency bias.
+    τ=float(sys.argv[7]),  # Persistence/memory time.
   )
