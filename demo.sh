@@ -1,5 +1,6 @@
 #! /bin/sh
 
+# Create copy of python script in the /build directory.
 cp ./run_simulation.py ./hoomd-v2.8.2/build/run_simulation.py
 cd ./hoomd-v2.8.2/build/
 
