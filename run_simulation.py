@@ -1,7 +1,6 @@
 
 # Import these modules for file/directory management
-import os, random, argparse
-from os import path
+import sys, os, random
 
 # These imports are needed for creating initial conditions of simulation
 import numpy as np
@@ -131,26 +130,14 @@ def main(
     dump.disable()
 
 if __name__ == "__main__":
-  parser = argparse.ArgumentParser(description="Specify simulation parameters.")
-  parser.add_argument("--L",     type=int,   default=100,  help="Linear system size.")
-  parser.add_argument("--rho",   type=float, default=2.00, help="Global particle density.")
-  parser.add_argument("--v",     type=float, default=1.00, help="Self-propulsion speed.")
-  parser.add_argument("--alpha", type=float, default=0.10, help="Orientational coupling strength.")
-  parser.add_argument("--beta",  type=float, default=0.00, help="Rotational coupling strength.")
-  parser.add_argument("--eta",   type=float, default=0.05, help="Orientational noise strength.")
-  parser.add_argument("--tau",   type=float, default=1.00, help="Persistence/memory time.")
-  parser.add_argument("--w",     type=float, default=0.00, help="Persistent turning bias.")
-  parser.add_argument("--sym",   type=int,   default=1,    help="Orientational alignment symmetry.")
-
-  args = parser.parse_args()
   main(
-    L=args.L,
-    ρ=args.rho,
-    v=args.v,
-    α=args.alpha,
-    β=args.beta,
-    η=args.eta,
-    τ=args.tau,
-    ω0=args.w,
-    sym=args.sym,
+    L=sys.argv[1],   # Linear system size.
+    ρ=sys.argv[2],   # Global particle density.
+    v=sys.argv[3],   # Self-propulsion speed.
+    sym=sys.argv[9], # Orientational alignment interaction symmetry.
+    α=sys.argv[4],   # Orientational alignment coupling strength.
+    β=sys.argv[5],   # Rotational frequency coupling strength.
+    η=sys.argv[6],   # Rotational frequency noise strength.
+    ω0=sys.argv[8],  # Rotational frequency bias.
+    τ=sys.argv[7],   # Persistence/memory time.
   )
