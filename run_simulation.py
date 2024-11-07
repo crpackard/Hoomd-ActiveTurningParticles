@@ -1,14 +1,22 @@
 
-# Import these modules for file/directory management
+# Import these modules for file/directory management.
 import sys, os, random
 
-# These imports are needed for creating initial conditions of simulation
+# .
+from typing import List
+
+# These imports are needed for creating initial conditions of simulation.
 import numpy as np
 from math import pi as π
 
-# These imports are needed for running simulations (path structures assumes code is run from /hoomd-v2.8.2/build directory)
+# These imports are needed for running simulations (path structures assumes code is run from /hoomd-v2.8.2/build directory).
 import hoomd, gsd.hoomd
 from hoomd.md import nlist as nl
+
+# These imports are used to visualize simulation dynamics.
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+import imageio
 
 # Location where simulation snapshots will be saved to.
 output_dir: str = os.path.join('..', '..', 'data')
@@ -128,6 +136,44 @@ def main(
     dump = hoomd.dump.gsd(simfile_path, period=(1000000-100000), group=all, overwrite=False)
     hoomd.run(1000000-100000)
     dump.disable()
+
+    #
+    tmp_gsd_path: str = simfile_path.replace('.gsd', '_tmp.gsd')
+    dump = hoomd.dump.gsd(tmp_gsd_path, period=1, group=all, overwrite=False)
+
+    # Create a movie of the simulation.
+    movie_file_path = simfile_path.replace('.gsd', '.gif')
+    with imageio.get_writer(movie_file_path, mode='I', fps=30) as writer:
+      for tIdx in tqdm(range(300)):
+        # Evolve the simulation a single time-step forward, and load the data.
+        hoomd.run(1)
+        hoomd_snapshots = gsd.hoomd.open(tmp_gsd_path, mode='rb')
+        snapshot = hoomd_snapshots[0]
+        # Configure a new matplotlib figure.
+        fig = plt.figure()
+        ax = fig.add_subplot()
+        ax.set_title(f'$t={tIdx}$')
+        ax.set_xlabel('$x$')
+        ax.set_ylabel('$y$')
+        ax.set_xlim(-L/2, L/2)
+        ax.set_ylim(-L/2, L/2)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.set_facecolor('k')
+        # Plot the position of each particle, and its instantaneous rotational frequency.
+        rx: np.ndarray = np.array([r[0] for r in snapshot.particles.position])
+        ry: np.ndarray = np.array([r[1] for r in snapshot.particles.position])
+        ωx: np.ndarray = np.array([ω[0] for ω in snapshot.particles.moment_inertia])
+        ωy: np.ndarray = np.array([ω[1] for ω in snapshot.particles.moment_inertia])
+        ωθ: np.ndarray = np.arctan2(ωy, ωx)
+        ax.scatter(rx, ry, c=ωθ, cmap='coolwarm', s=1.0)
+        # Save the plot, load the image into the movie, and delete the temporary .gsd and .png files.
+        tmp_png_path = os.path.join('.', 'tmp.png')
+        plt.savefig(tmp_png_path, bbox_inches='tight', dpi=300)
+        plt.close()
+        writer.append_data(imageio.imread(tmp_png_path))
+        os.remove(tmp_png_path)
+        os.remove(tmp_gsd_path)
 
 if __name__ == "__main__":
   main(
