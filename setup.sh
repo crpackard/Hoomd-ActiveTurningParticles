@@ -9,11 +9,10 @@ cp ../TwoStepColoredVicsek/* hoomd/md/
 mkdir build && cd build
 cmake ..
 make -j4
-cd ./../../
 
 # Create virtual environment and install required libraries.
-pip3 install --upgrade pip
-pip3 install virtualenv --upgrade
-python3.9 -m venv v-env --without-pip --system-site-packages
-v-env/bin/python3.9 -m pip install --upgrade distlib
-v-env/bin/python3.9 -m pip install -r requirements.txt
+pip3.6 install --upgrade pip
+pip3.6 install virtualenv --upgrade
+python3.6 -m venv v-env --without-pip --system-site-packages
+v-env/bin/python3.6 -m pip install -r requirements.txt
+
