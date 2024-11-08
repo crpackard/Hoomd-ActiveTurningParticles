@@ -146,7 +146,7 @@ void TwoStepVicsek::integrateStepOne(unsigned int timestep)
             }
         else
             {
-            updated_omegas[i] = omega_i + (m_beta/N)*W - (dt/m_tau)*(omega_i-m_bias) + m_delta*slow::sqrt(2*(dt/m_tau))*zeta;
+            updated_omegas[i] = omega_i + (m_beta/N)*W - (dt/m_tau)*(omega_i-m_bias) + m_delta*zeta;
             updated_orientations[i] = theta_i + (m_alpha/N)*J + updated_omegas[i];
             }
         }
@@ -169,7 +169,7 @@ void TwoStepVicsek::integrateStepTwo(unsigned int timestep)
     ArrayHandle<int3> h_image(m_pdata->getImages(), access_location::host, access_mode::readwrite);
     const BoxDim& box = m_pdata->getBox();
     unsigned int group_size = m_group->getNumMembers();
-    
+
     // update the position of each particle, and enforce period boundary condition
     for (unsigned int i = 0; i < group_size; i++)
         {
