@@ -133,7 +133,7 @@ void TwoStepVicsek::integrateStepOne(unsigned int timestep)
                 vec3<Scalar> I(h_inertia.data[j]);
                 double omega_j = atan2(I.y, I.x);
                 double theta_j = h_orientation.data[j].x;
-                W += slow::sin(omega_j-omega_i);
+                W += omega_j-omega_i;
                 J += slow::sin(m_sym*(theta_j-theta_i));
                 N += 1;
                 }
@@ -141,7 +141,7 @@ void TwoStepVicsek::integrateStepOne(unsigned int timestep)
 
         if(N==0)
             {
-            updated_omegas[i] = omega_i - (dt/m_tau)*(omega_i-m_bias) + m_delta*slow::sqrt(2*(dt/m_tau))*zeta;
+            updated_omegas[i] = omega_i - (dt/m_tau)*(omega_i-m_bias) + m_delta*zeta;
             updated_orientations[i] = theta_i + updated_omegas[i];
             }
         else
