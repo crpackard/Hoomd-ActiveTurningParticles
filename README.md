@@ -50,5 +50,12 @@ This model has previously been numerically studied by [Nagai et al. (PRE, 2015)]
 
 ## Application To Biological Systems
 
-- [C. Elegans](https://www.nature.com/articles/s41467-019-08537-y)
-  - <img src="https://www.nature.com/articles/s41467-019-08537-y/figures/1" alt="Alt text" width="200" height="100">
+- [C. Elegans](https://www.nature.com/articles/s41467-019-08537-y), $\mathcal{O}(10^3\mu{m})$
+  - Caenorhabditis elegans collectively form dynamical networks of bundle-shaped aggregates under proper experimental conditions.
+  - <img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41467-019-08537-y/MediaObjects/41467_2019_8537_Fig1_HTML.png?as=webp" alt="Alt text" width="500"/>
+- [Microtubules](https://www.nature.com/articles/nature10874), $\mathcal{O}(10^1\mu{m})$
+  - Microtubules propelled by surface-bound dyneins self-organize into vortices which possess a lattice structure.
+  - <img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fnature10874/MediaObjects/41586_2012_Article_BFnature10874_Fig1_HTML.jpg?as=webp" alt="Alt text" width="500"/>
+- [Serratia marcescens](https://www.nature.com/articles/s41586-024-07114-8?fromPaywallRec=false), $\mathcal{O}(10^0\mu{m})$
+  - Dense bacteria spontaneously develop a lattice of mesoscale, fast-spinning vortices with strong polar and vortical order.
+  - <img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-024-07114-8/MediaObjects/41586_2024_7114_Fig1_HTML.png?as=webp" alt="Alt text" width="500"/>
