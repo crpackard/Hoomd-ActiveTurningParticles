@@ -18,7 +18,7 @@ A system of $N$ particles move in a square, periodic domain of linear size $L$.
 Each particle maintains a constant self-propulsion speed $v_0$, and moves in the direction of its orientation $\theta_i$, such that its position evolves in time according to
 
 $$
-\frac{d\mathbf{r}_i(t)}{dt} = v_0\begin{bmatrix} \cos\theta_i(t) \\ \sin\theta_i(t) \end{bmatrix}\,.
+\frac{d\vec{r}_i(t)}{dt} = v_0\begin{bmatrix} \cos\theta_i(t) \\ \sin\theta_i(t) \end{bmatrix}\,.
 $$
 
 A particle's orientation evolves in time via interactions with its instantaneous set of neighbors and a noise according to
@@ -48,14 +48,25 @@ The terms appearing in the equation are described as follows:
 
 This model has previously been numerically studied by [Nagai et al. (PRE, 2015)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.114.168001).
 
+## Installation
+
+The script [setup.sh](https://github.com/crpackard/Hoomd-ActiveTurningParticles/blob/main/setup.sh) automates:
+1. The unpacking and building of [hoomd-v2.8.2.tar.gz](https://github.com/crpackard/Hoomd-ActiveTurningParticles/blob/main/hoomd-v2.8.2.tar.gz).
+2. The creation of a *Python* [virtual environment](https://docs.python.org/3/library/venv.html) for running simulations.
+
+This script was written for and tested on a machine running ```Ubuntu 18.04.6 LTS``` with ```Python 3.6.9``` already installed.
+
 ## Application To Biological Systems
 
-- [C. Elegans](https://www.nature.com/articles/s41467-019-08537-y), $\mathcal{O}(10^3\mu{m})$
+- [C. Elegans](https://www.nature.com/articles/s41467-019-08537-y)
   - Caenorhabditis elegans collectively form dynamical networks of bundle-shaped aggregates under proper experimental conditions.
+  - Average agent length $\approx10^3\mu{m}$
   - <img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41467-019-08537-y/MediaObjects/41467_2019_8537_Fig1_HTML.png?as=webp" alt="Alt text" width="500"/>
-- [Microtubules](https://www.nature.com/articles/nature10874), $\mathcal{O}(10^1\mu{m})$
+- [Microtubules](https://www.nature.com/articles/nature10874)
   - Microtubules propelled by surface-bound dyneins self-organize into vortices which possess a lattice structure.
+  - Average agent length $\approx10^1\mu{m}$
   - <img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fnature10874/MediaObjects/41586_2012_Article_BFnature10874_Fig1_HTML.jpg?as=webp" alt="Alt text" width="500"/>
-- [Serratia marcescens](https://www.nature.com/articles/s41586-024-07114-8?fromPaywallRec=false), $\mathcal{O}(10^0\mu{m})$
+- [Serratia marcescens](https://www.nature.com/articles/s41586-024-07114-8?fromPaywallRec=false)
   - Dense bacteria spontaneously develop a lattice of mesoscale, fast-spinning vortices with strong polar and vortical order.
+  - Average agent length $\approx10^0\mu{m}$
   - <img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-024-07114-8/MediaObjects/41586_2024_7114_Fig1_HTML.png?as=webp" alt="Alt text" width="500"/>
