@@ -15,6 +15,7 @@ The equations of motion numerically solved by this repository are described here
 - The computational implementation is given in [TwoStepColoredVicsek](https://github.com/crpackard/Hoomd-ActiveTurningParticles/tree/main/TwoStepColoredVicsek).
 
 A system of $N$ particles move in a square, periodic domain of linear size $L$.
+- These parameters define the global particle density $\rho_0=N/L^2$.
 
 Each particle maintains a constant self-propulsion speed $v_0$, and moves in the direction of its orientation $\theta_i$, such that its position evolves in time according to
 
@@ -53,9 +54,8 @@ The terms appearing in the equation are described as follows:
 
 In Summary, the model has the following $8$ parameters,
 ```math
-\left\{\rho_0,v_0,m,\alpha,\beta,\omega_0,\tau,\eta\right\},
+\left\{\rho_0,v_0,m,\alpha,\beta,\omega_0,\tau,\eta\right\}.
 ```
-where $\rho_0=N/L^2$ is the global particle density.
 
 This model has previously been numerically studied by [Nagai et al. (PRE, 2015)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.114.168001) in the limit $\beta=\omega_0=0$.
 
