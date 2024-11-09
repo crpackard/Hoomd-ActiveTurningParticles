@@ -10,7 +10,7 @@ Below are examples of simulations produced by this code for particles that have 
 
 ## Model Description
 
-The equations of motion that are simulated by this repository are described here.
+The equations of motion numerically solved by this repository are described here.
 - The computational implementation is given in [TwoStepColoredVicsek](https://github.com/crpackard/Hoomd-ActiveTurningParticles/tree/main/TwoStepColoredVicsek).
 
 A system of $N$ particles move in a square, periodic domain of linear size $L$.
@@ -18,7 +18,7 @@ A system of $N$ particles move in a square, periodic domain of linear size $L$.
 Each particle maintains a constant self-propulsion speed $v_0$, and moves in the direction of its orientation $\theta_i$, such that its position evolves in time according to
 
 ```math
-\frac{d\vec{r}_i(t)}{dt} = v_0\begin{bmatrix} \cos\theta_i(t) &\\ \sin\theta_i(t) \end{bmatrix}.
+\frac{d\vec{r}_i(t)}{dt} = v_0\begin{bmatrix} \cos\theta_i(t) \\ \sin\theta_i(t) \end{bmatrix}.
 ```
 
 A particle's orientation evolves in time via interactions with its instantaneous set of neighbors and a noise according to
@@ -29,9 +29,9 @@ A particle's orientation evolves in time via interactions with its instantaneous
 
 Note that:
 - The parameter $\alpha$ controls the strength of particle-particle orientational alignment interactions.
-- The parameter $m$ dictates the symmetry of particle interactions. When $m=1$ particles experience polar alignment interactions, and $m=2$ particles experience nematic alignment interactions.
 - The term $\mathcal{N}_i(t)$ denotes the set of interacting neighbors of particle $i$ at time $t$, which is defined as all other particles within a metric radius of $R=1$ of particle $i$.
-  - The term $\left|\mathcal{N}_i(t)\right|$ dentoes the size of the set $\mathcal{N}_i(t)$; i.e., the number of interacting neighbors.
+  - The term ```math\left|\mathcal{N}_i(t)\right|``` dentoes the size of the set $\mathcal{N}_i(t)$; i.e., the number of interacting neighbors.
+- The parameter $m$ dictates the symmetry of particle interactions. When $m=1$ particles experience polar alignment interactions, and $m=2$ particles experience nematic alignment interactions.
 
 The term $\omega_i$ corresponds to the rotational frequency of a particle's orientation, and evolves in time according to
 
