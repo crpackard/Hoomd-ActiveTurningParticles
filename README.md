@@ -30,8 +30,12 @@ A particle's orientation evolves in time via interactions with its instantaneous
 Note that:
 - The parameter $\alpha$ controls the strength of particle-particle orientational alignment interactions.
 - The term $\mathcal{N}_i(t)$ denotes the set of interacting neighbors of particle $i$ at time $t$, which is defined as all other particles within a metric radius of $R=1$ of particle $i$.
-  - The term ```math\left|\mathcal{N}_i(t)\right|``` dentoes the size of the set $\mathcal{N}_i(t)$; i.e., the number of interacting neighbors.
+  - The term $\left|\mathcal{N}_i(t)\right|$ denotes the size of the set $\mathcal{N}_i(t)$; i.e., the number of interacting neighbors.
 - The parameter $m$ dictates the symmetry of particle interactions. When $m=1$ particles experience polar alignment interactions, and $m=2$ particles experience nematic alignment interactions.
+
+<p  style="text-align: center;">
+  <img src="./.keep/orientational_interaction_symmetries.PNG", width="500" />
+</p>
 
 The term $\omega_i$ corresponds to the rotational frequency of a particle's orientation, and evolves in time according to
 
