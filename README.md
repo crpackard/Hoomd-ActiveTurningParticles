@@ -51,7 +51,13 @@ The terms appearing in the equation are described as follows:
 - The parameter $\omega_0$ is a bias in the rotational frequency.
 - The parameter $\eta$ is the strength of the Gaussian white noise $\zeta_i(t)$.
 
-This model has previously been numerically studied by [Nagai et al. (PRE, 2015)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.114.168001).
+In Summary, the model has the following $8$ parameters,
+```math
+\left\{\rho_0,v_0,m,\alpha,\beta,\omega_0,\tau,\eta\right\},
+```
+where $\rho_0=N/L^2$ is the global particle density.
+
+This model has previously been numerically studied by [Nagai et al. (PRE, 2015)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.114.168001) in the limit $\beta=\omega_0=0$.
 
 ## Installation
 
