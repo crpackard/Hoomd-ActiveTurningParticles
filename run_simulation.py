@@ -14,9 +14,16 @@ import hoomd, gsd.hoomd
 from hoomd.md import nlist as nl
 
 # These imports are used to visualize simulation dynamics.
-import matplotlib.pyplot as plt
-from tqdm import tqdm
 import imageio
+from tqdm import tqdm
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+rc = {'font.size': 12,
+  'font.family' : 'serif',
+  'mathtext.fontset' : 'stix',
+  'savefig.dpi': 300}
+plt.rcParams.update(rc)
+plt.rcParams['font.serif'] = ['Times New Roman'] + plt.rcParams['font.serif']
 
 # Location where simulation snapshots will be saved to.
 output_dir: str = os.path.join('..', '..', 'data')
@@ -102,59 +109,37 @@ def main(
       seed=random.randint(1,10e5)
     )
 
-    # Run simulation to t=1e0.
-    dump = hoomd.dump.gsd(simfile_path, period=1, group=all, overwrite=False)
-    hoomd.run(1)
-    dump.disable()
+    # Run the simulation for `dt` time-steps and save a snapshot of the very last one.
+    def evolve(dt: int) -> None:
+      dump = hoomd.dump.gsd(simfile_path, period=dt, group=all, overwrite=False)
+      hoomd.run(dt)
+      dump.disable()
 
-    # Run simulation to t=1e1.
-    dump = hoomd.dump.gsd(simfile_path, period=(10-1), group=all, overwrite=False)
-    hoomd.run(10-1)
-    dump.disable()
-
-    # Run simulation to t=1e2.
-    dump = hoomd.dump.gsd(simfile_path, period=(100-10), group=all, overwrite=False)
-    hoomd.run(100-10)
-    dump.disable()
-
-    # Run simulation to t=1e3.
-    dump = hoomd.dump.gsd(simfile_path, period=(1000-100), group=all, overwrite=False)
-    hoomd.run(1000-100)
-    dump.disable()
-
-    # Run simulation to t=1e4.
-    dump = hoomd.dump.gsd(simfile_path, period=(10000-1000), group=all, overwrite=False)
-    hoomd.run(10000-1000)
-    dump.disable()
-
-    # Run simulation to t=1e5.
-    dump = hoomd.dump.gsd(simfile_path, period=(100000-10000), group=all, overwrite=False)
-    hoomd.run(100000-10000)
-    dump.disable()
-
-    # Run simulation to t=1e6.
-    dump = hoomd.dump.gsd(simfile_path, period=(1000000-100000), group=all, overwrite=False)
-    hoomd.run(1000000-100000)
-    dump.disable()
-
-    #
-    tmp_gsd_path: str = simfile_path.replace('.gsd', '_tmp.gsd')
-    dump = hoomd.dump.gsd(tmp_gsd_path, period=1, group=all, overwrite=False)
+    # Save snapshots at logarithmically spaced time-step intervals.
+    evolve(dt=int(1e0)-0)
+    evolve(dt=int(1e1)-int(1e0))
+    evolve(dt=int(1e2)-int(1e1))
+    evolve(dt=int(1e3)-int(1e2))
+    evolve(dt=int(1e4)-int(1e3))
+    if False:
+      evolve(dt=int(1e5)-int(1e4))
+      evolve(dt=int(1e6)-int(1e5))
+    tf = int(1e6)
 
     # Create a movie of the simulation.
     movie_file_path = simfile_path.replace('.gsd', '.gif')
+    tmp_gsd_path: str = simfile_path.replace('.gsd', '_tmp.gsd')
     with imageio.get_writer(movie_file_path, mode='I', fps=30) as writer:
-      for tIdx in tqdm(range(300)):
+      for tIdx in tqdm(range(100)):
         # Evolve the simulation a single time-step forward, and load the data.
+        hoomd.dump.gsd(tmp_gsd_path, period=1, group=all, overwrite=True)
         hoomd.run(1)
         hoomd_snapshots = gsd.hoomd.open(tmp_gsd_path, mode='rb')
         snapshot = hoomd_snapshots[0]
         # Configure a new matplotlib figure.
         fig = plt.figure()
         ax = fig.add_subplot()
-        ax.set_title(f'$t={tIdx}$')
-        ax.set_xlabel('$x$')
-        ax.set_ylabel('$y$')
+        ax.set_title(f'$t={tf+tIdx}$')
         ax.set_xlim(-L/2, L/2)
         ax.set_ylim(-L/2, L/2)
         ax.set_xticks([])
@@ -166,14 +151,36 @@ def main(
         ωx: np.ndarray = np.array([ω[0] for ω in snapshot.particles.moment_inertia])
         ωy: np.ndarray = np.array([ω[1] for ω in snapshot.particles.moment_inertia])
         ωθ: np.ndarray = np.arctan2(ωy, ωx)
-        ax.scatter(rx, ry, c=ωθ, cmap='coolwarm', s=1.0)
+        if (sym==1):
+          cmap = 'coolwarm'
+          z, zlbl, zmin, zmax = ωθ, r'$\omega$', -0.2, 0.2
+        elif (sym==2):
+          cmap = 'coolwarm'
+          z, zlbl, zmin, zmax = ωθ, r'$\omega$', -0.2, 0.2
+        else:
+          pass
+        ax.scatter(rx, ry, c=z, cmap=cmap, vmin=zmin, vmax=zmax, s=0.10)
+        # Add a color bar legend (align it tight to the plot window).
+        fake_data = np.asarray([[0]])
+        cmap = plt.cm.get_cmap(cmap)
+        norm = plt.Normalize(zmin, zmax)
+        im = ax.imshow(fake_data, cmap=cmap, vmin=zmin, vmax=zmax)
+        divider = make_axes_locatable(ax)
+        cax = divider.append_axes('right', size='5%', pad=0.05)
+        color_bar = plt.colorbar(im,
+          ax=ax,
+          cax=cax,
+          orientation='vertical',
+          ticks=[zmin, 0, zmax],
+        )
+        color_bar.ax.set_title(zlbl)
         # Save the plot, load the image into the movie, and delete the temporary .gsd and .png files.
         tmp_png_path = os.path.join('.', 'tmp.png')
-        plt.savefig(tmp_png_path, bbox_inches='tight', dpi=300)
+        plt.savefig(tmp_png_path, bbox_inches='tight', dpi=150)
         plt.close()
         writer.append_data(imageio.imread(tmp_png_path))
         os.remove(tmp_png_path)
-        os.remove(tmp_gsd_path)
+      os.remove(tmp_gsd_path)
 
 if __name__ == "__main__":
   main(

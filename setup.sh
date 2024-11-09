@@ -9,6 +9,7 @@ cp ../TwoStepColoredVicsek/* hoomd/md/
 mkdir build && cd build
 cmake ..
 make -j4
+cd ./../../
 
 # Create virtual environment and install required libraries.
 pip3.6 install --upgrade pip
