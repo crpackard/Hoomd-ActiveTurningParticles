@@ -1,7 +1,12 @@
 # Hoomd-ActiveTurningParticles
 Plugin for [Hoomd-Blue](https://glotzerlab.engin.umich.edu/hoomd-blue/) that simulates persistent-turning, self-propelled (active) particles.
 
+Below are examples of simulations produced by this code for particles that have polar (left) and nematic (right) alignment symmetry.
 
+<p float="center">
+  <img src="./data/", width="500" />
+  <img src="./data/", width="500" />
+</p>
 
 ## Model Description
 
@@ -42,3 +47,8 @@ The terms appearing in the equation are described as follows:
 - The parameter $\eta$ is the strength of the Gaussian white noise $\zeta_i(t)$.
 
 This model has previously been numerically studied by [Nagai et al. (PRE, 2015)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.114.168001).
+
+## Application To Biological Systems
+
+- [C. Elegans](https://www.nature.com/articles/s41467-019-08537-y)
+  - <img src="https://www.nature.com/articles/s41467-019-08537-y/figures/1" alt="Alt text" width="200" height="100">
