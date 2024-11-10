@@ -5,8 +5,8 @@ Below are examples of simulations produced by this code for particles that have 
 - Simulation movies are created by [demo.sh](https://github.com/crpackard/Hoomd-ActiveTurningParticles/blob/main/demo.sh).
 
 <p float="center">
-  <img src="./data/m=1_b=0.000_w0=0.000/L=200_d=2.000_v=1.000_τ=100.000/a=0.100_e=0.010.gif", width="500" />
-  <img src="./data/m=2_b=0.000_w0=0.000/L=200_d=2.000_v=1.000_τ=100.000/a=0.100_e=0.010.gif", width="500" />
+  <img src="./data/m=1_b=0.000_w0=0.000/L=200_d=2.000_v=1.000_τ=100.000/a=0.100_e=0.010.gif", width="400" />
+  <img src="./data/m=2_b=0.000_w0=0.000/L=200_d=2.000_v=1.000_τ=100.000/a=0.100_e=0.010.gif", width="400" />
 </p>
 
 ## Model Description
